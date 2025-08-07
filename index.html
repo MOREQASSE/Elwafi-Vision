@@ -1,0 +1,995 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elwafi Vision - Opticien de Luxe à Safi</title>
+    <meta name="description" content="Opticien haut de gamme à Safi. Examens de vue précis, montures de luxe et lentilles de contact premium. Cadre offert avec tout achat de verres.">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#186685',
+                        secondary: '#E8F1F5',
+                        accent: '#D4A762',
+                        dark: '#1A1A1A',
+                        light: '#F8F8F8'
+                    },
+                    fontFamily: {
+                        heading: ['Playfair Display', 'serif'],
+                        body: ['Montserrat', 'sans-serif'],
+                    },
+                    spacing: {
+                        '128': '32rem',
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        /* Custom animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .animate-fade-in {
+            animation: fadeIn 0.8s ease-out forwards;
+        }
+        
+        .delay-100 {
+            animation-delay: 0.1s;
+        }
+        
+        .delay-200 {
+            animation-delay: 0.2s;
+        }
+        
+        .delay-300 {
+            animation-delay: 0.3s;
+        }
+        
+        /* Smooth transitions */
+        .transition-slow {
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: #186685;
+            border-radius: 4px;
+        }
+        
+        /* Navigation underline effect */
+        .nav-link {
+            position: relative;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -2px;
+            left: 0;
+            background-color: #D4A762;
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+    </style>
+</head>
+<body class="font-body text-dark bg-light antialiased">
+    <!-- Preloader -->
+    <div id="preloader" class="fixed inset-0 z-50 flex items-center justify-center bg-primary transition-opacity duration-500">
+        <div class="text-center">
+            <div class="w-16 h-16 border-4 border-accent border-t-transparent rounded-full animate-spin mb-4"></div>
+            <p class="text-white font-medium">Chargement...</p>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="fixed w-full z-40 bg-white/90 backdrop-blur-md shadow-sm transition-all duration-300">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex justify-between items-center">
+                <!-- Logo -->
+                <a href="#" class="flex items-center">
+                    <div class="w-16 h-16 rounded-full overflow-hidden mr-3">
+    <img src="images/Elwafi vision.jpg" alt="Elwafi Vision Logo" class="w-full h-full object-cover">
+</div>
+                    <span class="text-2xl font-heading font-bold text-primary">Elwafi Vision</span>
+                </a>
+                
+                <!-- Desktop Navigation -->
+                <nav class="hidden lg:flex space-x-10">
+                    <a href="#home" class="nav-link text-dark hover:text-accent font-medium">Accueil</a>
+                    <a href="#services" class="nav-link text-dark hover:text-accent font-medium">Services</a>
+                    <a href="#gallery" class="nav-link text-dark hover:text-accent font-medium">Galerie</a>
+                    <a href="#brands" class="nav-link text-dark hover:text-accent font-medium">Marques</a>
+                    <a href="#contact" class="nav-link text-dark hover:text-accent font-medium">Contact</a>
+                </nav>
+                
+                <!-- Mobile Menu Button -->
+                <button id="mobile-menu-button" class="lg:hidden text-primary focus:outline-none">
+                    <i class="fas fa-bars text-2xl"></i>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden lg:hidden bg-white shadow-lg">
+            <div class="container mx-auto px-6 py-4">
+                <div class="flex flex-col space-y-4">
+                    <a href="#home" class="text-dark hover:text-accent font-medium py-2 border-b border-gray-100">Accueil</a>
+                    <a href="#services" class="text-dark hover:text-accent font-medium py-2 border-b border-gray-100">Services</a>
+                    <a href="#gallery" class="text-dark hover:text-accent font-medium py-2 border-b border-gray-100">Galerie</a>
+                    <a href="#brands" class="text-dark hover:text-accent font-medium py-2 border-b border-gray-100">Marques</a>
+                    <a href="#contact" class="text-dark hover:text-accent font-medium py-2">Contact</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="relative h-screen flex items-center justify-center overflow-hidden pt-20">
+        <div class="absolute inset-0 bg-dark/60 z-10"></div>
+        <div class="absolute inset-0">
+            <img src="images/hero image glasses.jpg" 
+                 alt="Boutique Elwafi Vision" 
+                 class="w-full h-full object-cover object-center">
+        </div>
+        
+        <div class="container mx-auto px-6 relative z-20 text-center animate-fade-in">
+            <h1 class="text-4xl md:text-5xl lg:text-6xl font-heading font-bold text-white mb-6">
+                <span class="block">Votre Vision,</span>
+                <span class="block text-accent">Notre Expertise</span>
+            </h1>
+            
+            <p class="text-xl text-white/90 mb-10 max-w-2xl mx-auto">
+                Cadre offert avec tout achat de verres. Découvrez notre collection exclusive de montures de luxe et bénéficiez d'un examen de vue précis avec nos opticiens diplômés.
+            </p>
+            
+            <div class="flex flex-col sm:flex-row justify-center gap-4">
+                <a href="#booking" class="bg-accent hover:bg-accent/90 text-white font-medium py-3 px-8 rounded-full transition-slow flex items-center justify-center space-x-2">
+                    <i class="far fa-calendar-check"></i>
+                    <span>Prendre RDV</span>
+                </a>
+                <a href="tel:0524461371" class="bg-white hover:bg-white/90 text-primary font-medium py-3 px-8 rounded-full transition-slow flex items-center justify-center space-x-2">
+                    <i class="fas fa-phone-alt"></i>
+                    <span>05 24 46 13 71</span>
+                </a>
+            </div>
+        </div>
+        
+        <div class="absolute bottom-10 left-0 right-0 z-20 text-center animate-fade-in delay-300">
+            <a href="#services" class="inline-block animate-bounce">
+                <i class="fas fa-chevron-down text-white text-2xl"></i>
+            </a>
+        </div>
+    </section>
+
+    <!-- USP Banner -->
+    <div class="bg-primary text-white py-4">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row items-center justify-center gap-4">
+                <div class="flex items-center">
+                    <i class="fas fa-gem text-accent text-2xl mr-3"></i>
+                    <p class="font-medium text-center md:text-left">
+                        Chez Elwafi Vision, votre monture est TOUJOURS offerte avec l'achat de verres!
+                    </p>
+                </div>
+                <a href="#services" class="text-accent hover:text-accent/80 font-semibold flex items-center">
+                    En savoir plus <i class="fas fa-arrow-right ml-2"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Services Section -->
+    <section id="services" class="py-20 bg-light">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <span class="text-accent font-medium uppercase tracking-wider">Nos Prestations</span>
+                <h2 class="text-3xl md:text-4xl font-heading font-bold mt-2 mb-4">Services Exclusifs</h2>
+                <div class="w-20 h-1 bg-accent mx-auto"></div>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Service 1 -->
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden transition-slow hover:shadow-xl hover:-translate-y-2">
+                    <div class="h-48 bg-gradient-to-r from-primary to-primary/80 flex items-center justify-center">
+                        <i class="fas fa-eye text-white text-6xl"></i>
+                    </div>
+                    <div class="p-8">
+                        <h3 class="text-xl font-heading font-bold mb-3">Examens Complets</h3>
+                        <p class="text-gray-600 mb-6">
+                            Un examen approfondi de votre vue réalisé avec des équipements de pointe pour une correction visuelle parfaite.
+                        </p>
+                        <ul class="space-y-2 mb-6">
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-accent mt-1 mr-2"></i>
+                                <span>Technologie de dernière génération</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-accent mt-1 mr-2"></i>
+                                <span>Analyse complète de la vision</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-accent mt-1 mr-2"></i>
+                                <span>Conseils personnalisés</span>
+                            </li>
+                        </ul>
+                        <a href="#booking" class="text-primary hover:text-accent font-medium flex items-center">
+                            Prendre RDV <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Service 2 -->
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden transition-slow hover:shadow-xl hover:-translate-y-2">
+                    <div class="h-48 bg-gradient-to-r from-accent to-accent/80 flex items-center justify-center">
+                        <i class="fas fa-glasses text-white text-6xl"></i>
+                    </div>
+                    <div class="p-8">
+                        <h3 class="text-xl font-heading font-bold mb-3">Montures de Luxe</h3>
+                        <p class="text-gray-600 mb-6">
+                            Sélection exclusive des plus grandes marques internationales pour un style unique et élégant.
+                        </p>
+                        <ul class="space-y-2 mb-6">
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-accent mt-1 mr-2"></i>
+                                <span>Marques prestigieuses</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-accent mt-1 mr-2"></i>
+                                <span>Conseils stylistiques</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-accent mt-1 mr-2"></i>
+                                <span>Cadre offert avec vos verres</span>
+                            </li>
+                        </ul>
+                        <a href="#brands" class="text-primary hover:text-accent font-medium flex items-center">
+                            Découvrir <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Service 3 -->
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden transition-slow hover:shadow-xl hover:-translate-y-2">
+                    <div class="h-48 bg-gradient-to-r from-dark to-dark/80 flex items-center justify-center">
+                        <i class="fas fa-eye-dropper text-white text-6xl"></i>
+                    </div>
+                    <div class="p-8">
+                        <h3 class="text-xl font-heading font-bold mb-3">Lentilles Premium</h3>
+                        <p class="text-gray-600 mb-6">
+                            Une gamme complète de lentilles de contact adaptées à tous les besoins et toutes les sensibilités.
+                        </p>
+                        <ul class="space-y-2 mb-6">
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-accent mt-1 mr-2"></i>
+                                <span>Journalières, mensuelles, annuelles</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-accent mt-1 mr-2"></i>
+                                <span>Adaptation professionnelle</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-accent mt-1 mr-2"></i>
+                                <span>Suivi personnalisé</span>
+                            </li>
+                        </ul>
+                        <a href="#contact" class="text-primary hover:text-accent font-medium flex items-center">
+                            Nous consulter <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col lg:flex-row items-center">
+                <div class="lg:w-1/2 mb-12 lg:mb-0 lg:pr-12">
+                    <div class="relative">
+                        <img src="images/shop.webp" 
+                             alt="Examen de vue" 
+                             class="rounded-xl shadow-lg w-full">
+                        <div class="absolute -bottom-6 -right-6 bg-accent p-6 rounded-xl shadow-lg">
+                            <div class="text-white text-center">
+                                <span class="block text-3xl font-heading font-bold">15+</span>
+                                <span class="block uppercase text-sm tracking-wider">Ans d'expérience</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="lg:w-1/2">
+                    <span class="text-accent font-medium uppercase tracking-wider">Notre Philosophie</span>
+                    <h2 class="text-3xl md:text-4xl font-heading font-bold mt-2 mb-6">Excellence & Expertise</h2>
+                    
+                    <p class="text-gray-600 mb-6">
+                        Fondé en 2008, Elwafi Vision s'est imposé comme une référence dans le domaine de l'optique haut de gamme à Safi. Notre mission est d'offrir à chaque client une expérience personnalisée alliant technologie de pointe et conseils d'experts.
+                    </p>
+                    
+                    <div class="space-y-4 mb-8">
+                        <div class="flex items-start">
+                            <div class="bg-primary/10 text-primary p-2 rounded-lg mr-4">
+                                <i class="fas fa-medal text-lg"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-heading font-bold mb-1">Diplômés & Certifiés</h4>
+                                <p class="text-gray-600">Nos opticiens sont formés aux dernières technologies et techniques de correction visuelle.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <div class="bg-primary/10 text-primary p-2 rounded-lg mr-4">
+                                <i class="fas fa-star text-lg"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-heading font-bold mb-1">Service Personnalisé</h4>
+                                <p class="text-gray-600">Chaque client bénéficie d'un temps dédié et de conseils adaptés à ses besoins spécifiques.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <div class="bg-primary/10 text-primary p-2 rounded-lg mr-4">
+                                <i class="fas fa-award text-lg"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-heading font-bold mb-1">Produits Haut de Gamme</h4>
+                                <p class="text-gray-600">Nous sélectionnons rigoureusement nos partenaires pour vous garantir qualité et durabilité.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <a href="#contact" class="inline-flex items-center text-primary hover:text-accent font-medium">
+                        En savoir plus sur nous <i class="fas fa-arrow-right ml-2"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery" class="py-20 bg-secondary">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <span class="text-accent font-medium uppercase tracking-wider">Notre Univers</span>
+                <h2 class="text-3xl md:text-4xl font-heading font-bold mt-2 mb-4">Galerie d'Inspiration</h2>
+                <div class="w-20 h-1 bg-accent mx-auto"></div>
+            </div>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Gallery Item 1 -->
+                <div class="group relative overflow-hidden rounded-xl shadow-lg">
+                    <img src="https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80" 
+                         alt="Boutique Elwafi Vision" 
+                         class="w-full h-80 object-cover transition-slow group-hover:scale-105">
+                    <div class="absolute inset-0 bg-gradient-to-t from-dark/80 via-dark/20 to-transparent flex items-end p-6 opacity-0 group-hover:opacity-100 transition-slow">
+                        <div>
+                            <h3 class="text-white font-heading text-xl font-bold mb-2">Notre Boutique</h3>
+                            <p class="text-white/80">Un espace élégant et convivial dédié à votre confort visuel.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Gallery Item 2 -->
+                <div class="group relative overflow-hidden rounded-xl shadow-lg">
+                    <img src="https://images.unsplash.com/photo-1551796880-ddd03f861ae7?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80" 
+                         alt="Technologie de pointe" 
+                         class="w-full h-80 object-cover transition-slow group-hover:scale-105">
+                    <div class="absolute inset-0 bg-gradient-to-t from-dark/80 via-dark/20 to-transparent flex items-end p-6 opacity-0 group-hover:opacity-100 transition-slow">
+                        <div>
+                            <h3 class="text-white font-heading text-xl font-bold mb-2">Technologie Avancée</h3>
+                            <p class="text-white/80">Des équipements dernier cri pour des résultats précis.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Gallery Item 3 -->
+                <div class="group relative overflow-hidden rounded-xl shadow-lg">
+                    <img src="https://images.unsplash.com/photo-1556306535-38febf6782e7?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80" 
+                         alt="Client satisfait" 
+                         class="w-full h-80 object-cover transition-slow group-hover:scale-105">
+                    <div class="absolute inset-0 bg-gradient-to-t from-dark/80 via-dark/20 to-transparent flex items-end p-6 opacity-0 group-hover:opacity-100 transition-slow">
+                        <div>
+                            <h3 class="text-white font-heading text-xl font-bold mb-2">Clients Satisfaits</h3>
+                            <p class="text-white/80">Votre satisfaction est notre plus belle récompense.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Gallery Item 4 -->
+                <div class="group relative overflow-hidden rounded-xl shadow-lg">
+                    <img src="https://images.unsplash.com/photo-1498843053639-4d5d14fa8d94?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80" 
+                         alt="Montures de luxe" 
+                         class="w-full h-80 object-cover transition-slow group-hover:scale-105">
+                    <div class="absolute inset-0 bg-gradient-to-t from-dark/80 via-dark/20 to-transparent flex items-end p-6 opacity-0 group-hover:opacity-100 transition-slow">
+                        <div>
+                            <h3 class="text-white font-heading text-xl font-bold mb-2">Montures Designer</h3>
+                            <p class="text-white/80">Des créations uniques des plus grandes marques.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Gallery Item 5 -->
+                <div class="group relative overflow-hidden rounded-xl shadow-lg">
+                    <img src="https://images.unsplash.com/photo-1507679799987-c73779587ccf?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80" 
+                         alt="Examen de la vue" 
+                         class="w-full h-80 object-cover transition-slow group-hover:scale-105">
+                    <div class="absolute inset-0 bg-gradient-to-t from-dark/80 via-dark/20 to-transparent flex items-end p-6 opacity-0 group-hover:opacity-100 transition-slow">
+                        <div>
+                            <h3 class="text-white font-heading text-xl font-bold mb-2">Examen Précis</h3>
+                            <p class="text-white/80">Un diagnostic complet pour une correction optimale.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Gallery Item 6 -->
+                <div class="group relative overflow-hidden rounded-xl shadow-lg">
+                    <img src="https://images.unsplash.com/photo-1556306510-31ca015374b0?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80" 
+                         alt="Collection de lunettes" 
+                         class="w-full h-80 object-cover transition-slow group-hover:scale-105">
+                    <div class="absolute inset-0 bg-gradient-to-t from-dark/80 via-dark/20 to-transparent flex items-end p-6 opacity-0 group-hover:opacity-100 transition-slow">
+                        <div>
+                            <h3 class="text-white font-heading text-xl font-bold mb-2">Large Choix</h3>
+                            <p class="text-white/80">Des centaines de modèles pour tous les styles.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Brands Section -->
+    <section id="brands" class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <span class="text-accent font-medium uppercase tracking-wider">Nos Partenaires</span>
+                <h2 class="text-3xl md:text-4xl font-heading font-bold mt-2 mb-4">Marques Prestigieuses</h2>
+                <div class="w-20 h-1 bg-accent mx-auto"></div>
+            </div>
+            
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+                <!-- Ray-Ban Logo -->
+                <div class="bg-light rounded-xl p-6 flex items-center justify-center h-32 transition-slow hover:shadow-lg hover:-translate-y-1">
+                    <img src="images/brands/rayban.png" 
+                         alt="Ray-Ban" 
+                         class="h-32 object-contain">
+                </div>
+                
+                <!-- Gucci Logo -->
+                <div class="bg-light rounded-xl p-6 flex items-center justify-center h-32 transition-slow hover:shadow-lg hover:-translate-y-1">
+                    <img src="images/brands/gucci-logo-49106.png" 
+                         alt="Gucci" 
+                         class="h-20 object-contain">
+                </div>
+                
+                <!-- Oakley Logo -->
+                <div class="bg-light rounded-xl p-6 flex items-center justify-center h-32 transition-slow hover:shadow-lg hover:-translate-y-1">
+                    <img src="images/brands/oakley.png" 
+                         alt="Oakley" 
+                         class="h-32 object-contain">
+                </div>
+                <!-- Dior Logo -->
+                <div class="bg-light rounded-xl p-6 flex items-center justify-center h-32 transition-slow hover:shadow-lg hover:-translate-y-1">
+                    <img src="images/brands/dior.png" 
+                         alt="Dior" 
+                         class="h-28 object-contain">
+                </div>
+                <div class="bg-light rounded-xl p-8 flex items-center justify-center h-32 transition-slow hover:shadow-lg hover:-translate-y-1">
+                    <img src="images/brands/prada.png" 
+                         alt="Prada" 
+                         class="h-28 object-contain">
+                </div>
+                <div class="bg-light rounded-xl p-8 flex items-center justify-center h-32 transition-slow hover:shadow-lg hover:-translate-y-1">
+                    <img src="images/brands/versace.png" 
+                         alt="Versace" 
+                         class="h-24 object-contain">
+                </div>
+                <div class="bg-light rounded-xl p-8 flex items-center justify-center h-32 transition-slow hover:shadow-lg hover:-translate-y-1">
+                    <img src="images/brands/tom-ford.png" 
+                         alt="Tom Ford" 
+                         class="h-28 object-contain">
+                </div>
+                <div class="bg-light rounded-xl p-8 flex items-center justify-center h-32 transition-slow hover:shadow-lg hover:-translate-y-1">
+                    <img src="images/brands/essilor.png" 
+                         alt="Essilor" 
+                         class="h-32 object-contain">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="py-20 bg-primary text-white">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <span class="text-accent font-medium uppercase tracking-wider">Témoignages</span>
+                <h2 class="text-3xl md:text-4xl font-heading font-bold mt-2 mb-4">Ce Que Disent Nos Clients</h2>
+                <div class="w-20 h-1 bg-accent mx-auto"></div>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Testimonial 1 -->
+                <div class="bg-white/10 rounded-xl p-8 backdrop-blur-sm">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 rounded-full bg-accent flex items-center justify-center text-white mr-4">
+                            <i class="fas fa-user text-xl"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-heading font-bold">Karim B.</h4>
+                            <div class="flex text-accent">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="italic">
+                        "Un service exceptionnel et des conseils avisés. J'ai enfin trouvé des lunettes qui me vont parfaitement et qui correspondent à mon style. Le cadre offert avec les verres est une offre incroyable!"
+                    </p>
+                </div>
+                
+                <!-- Testimonial 2 -->
+                <div class="bg-white/10 rounded-xl p-8 backdrop-blur-sm">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 rounded-full bg-accent flex items-center justify-center text-white mr-4">
+                            <i class="fas fa-user text-xl"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-heading font-bold">Amina S.</h4>
+                            <div class="flex text-accent">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="italic">
+                        "L'examen de vue a été très complet et professionnel. L'opticien a pris le temps de m'expliquer chaque étape. Les montures Gucci que j'ai choisies sont magnifiques et le prix très raisonnable."
+                    </p>
+                </div>
+                
+                <!-- Testimonial 3 -->
+                <div class="bg-white/10 rounded-xl p-8 backdrop-blur-sm">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 rounded-full bg-accent flex items-center justify-center text-white mr-4">
+                            <i class="fas fa-user text-xl"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-heading font-bold">Mehdi L.</h4>
+                            <div class="flex text-accent">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="italic">
+                        "Je recommande vivement Elwafi Vision. L'accueil est chaleureux, la boutique très élégante et le choix de montures impressionnant. J'ai particulièrement apprécié les conseils pour choisir des lunettes adaptées à la forme de mon visage."
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Booking Section -->
+    <section id="booking" class="py-20 bg-light">
+        <div class="container mx-auto px-6">
+            <div class="max-w-4xl mx-auto bg-white rounded-xl shadow-lg overflow-hidden">
+                <div class="md:flex">
+                    <div class="md:w-1/2 bg-primary text-white p-12 flex flex-col justify-center">
+                        <div class="flex justify-center mb-6">
+                            <div class="w-32 h-32 rounded-full overflow-hidden border-4 border-white/20 shadow-lg">
+                                <img src="images/Elwafi vision.jpg" alt="Elwafi Vision Logo" class="w-full h-full object-cover">
+                            </div>
+                        </div>
+                        <h2 class="text-3xl font-heading font-bold mb-6 text-center">Prenez Rendez-vous</h2>
+                        <p class="mb-8">
+                            Réservez en ligne votre consultation ou votre examen de vue. Notre équipe vous contactera pour confirmer votre rendez-vous.
+                        </p>
+                        <div class="space-y-4">
+                            <div class="flex items-center">
+                                <i class="fas fa-phone-alt text-accent mr-4"></i>
+                                <span>05 24 46 13 71</span>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fas fa-envelope text-accent mr-4"></i>
+                                <span>taha.elwafi@gmail.com</span>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fas fa-map-marker-alt text-accent mr-4"></i>
+                                <span>Quartier Hrayat El Bid - Lot Zaitouna 46040, Safi</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="md:w-1/2 p-12">
+                        <form id="bookingForm" class="space-y-6">
+                            <div>
+                                <label for="bookingName" class="block text-gray-700 font-medium mb-2">Nom Complet *</label>
+                                <input type="text" id="bookingName" name="bookingName" required 
+                                       class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                            </div>
+                            
+                            <div>
+                                <label for="bookingEmail" class="block text-gray-700 font-medium mb-2">Email *</label>
+                                <input type="email" id="bookingEmail" name="bookingEmail" required 
+                                       class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                            </div>
+                            
+                            <div>
+                                <label for="bookingPhone" class="block text-gray-700 font-medium mb-2">Téléphone *</label>
+                                <input type="tel" id="bookingPhone" name="bookingPhone" required 
+                                       class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                            </div>
+                            
+                            <div>
+                                <label for="bookingService" class="block text-gray-700 font-medium mb-2">Service *</label>
+                                <select id="bookingService" name="bookingService" required 
+                                        class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                                    <option value="">Sélectionnez un service</option>
+                                    <option value="eye-exam">Examen de vue</option>
+                                    <option value="frames">Choix de montures</option>
+                                    <option value="contact-lenses">Lentilles de contact</option>
+                                    <option value="repair">Réparation de lunettes</option>
+                                </select>
+                            </div>
+                            
+                            <div>
+                                <label for="bookingDate" class="block text-gray-700 font-medium mb-2">Date souhaitée *</label>
+                                <input type="date" id="bookingDate" name="bookingDate" required 
+                                       class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                            </div>
+                            
+                            <div>
+                                <label for="bookingMessage" class="block text-gray-700 font-medium mb-2">Message</label>
+                                <textarea id="bookingMessage" name="bookingMessage" rows="3" 
+                                          class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"></textarea>
+                            </div>
+                            
+                            <button type="submit" class="w-full bg-accent hover:bg-accent/90 text-white font-medium py-3 px-6 rounded-lg transition-slow flex items-center justify-center space-x-2">
+                                <i class="far fa-calendar-check"></i>
+                                <span>Réserver Maintenant</span>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <span class="text-accent font-medium uppercase tracking-wider">Contactez-nous</span>
+                <h2 class="text-3xl md:text-4xl font-heading font-bold mt-2 mb-4">Nous Sommes à Votre Écoute</h2>
+                <div class="w-20 h-1 bg-accent mx-auto"></div>
+            </div>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                <!-- Contact Info -->
+                <div class="bg-light rounded-xl p-8 shadow-lg">
+                    <h3 class="text-2xl font-heading font-bold mb-6">Informations de Contact</h3>
+                    
+                    <div class="space-y-6">
+                        <div class="flex items-start">
+                            <div class="bg-primary/10 text-primary p-3 rounded-lg mr-4">
+                                <i class="fas fa-map-marker-alt text-lg"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-heading font-bold mb-1">Adresse</h4>
+                                <p class="text-gray-600">Quartier Hrayat El Bid - Lot Zaitouna 46040, Safi</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <div class="bg-primary/10 text-primary p-3 rounded-lg mr-4">
+                                <i class="fas fa-phone-alt text-lg"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-heading font-bold mb-1">Téléphone</h4>
+                                <a href="tel:0524461371" class="text-gray-600 hover:text-primary">05 24 46 13 71</a>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <div class="bg-primary/10 text-primary p-3 rounded-lg mr-4">
+                                <i class="fas fa-envelope text-lg"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-heading font-bold mb-1">Email</h4>
+                                <a href="mailto:taha.elwafi@gmail.com" class="text-gray-600 hover:text-primary">taha.elwafi@gmail.com</a>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <div class="bg-primary/10 text-primary p-3 rounded-lg mr-4">
+                                <i class="fas fa-clock text-lg"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-heading font-bold mb-1">Horaires d'Ouverture</h4>
+                                <p class="text-gray-600 mb-1">Lundi - Vendredi: 9h00 - 18h00</p>
+                                <p class="text-gray-600">Samedi: 9h00 - 13h00</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-8">
+                        <h4 class="font-heading font-bold mb-4">Suivez-nous</h4>
+                        <div class="flex space-x-4">
+                            <a href="www.facebook.com/elwafivision17" class="w-10 h-10 bg-primary hover:bg-primary/90 text-white rounded-full flex items-center justify-center transition-slow">
+                                <i class="fab fa-facebook-f"></i>
+                            </a>
+                            <a href="#" class="w-10 h-10 bg-primary hover:bg-primary/90 text-white rounded-full flex items-center justify-center transition-slow">
+                                <i class="fab fa-instagram"></i>
+                            </a>
+                            <a href="#" class="w-10 h-10 bg-primary hover:bg-primary/90 text-white rounded-full flex items-center justify-center transition-slow">
+                                <i class="fab fa-linkedin-in"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Contact Form -->
+                <div class="bg-light rounded-xl p-8 shadow-lg">
+                    <h3 class="text-2xl font-heading font-bold mb-6">Envoyez-nous un Message</h3>
+                    
+                    <form id="contactForm" class="space-y-6">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label for="contactName" class="block text-gray-700 font-medium mb-2">Nom *</label>
+                                <input type="text" id="contactName" name="contactName" required 
+                                       class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                            </div>
+                            
+                            <div>
+                                <label for="contactEmail" class="block text-gray-700 font-medium mb-2">Email *</label>
+                                <input type="email" id="contactEmail" name="contactEmail" required 
+                                       class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <label for="contactSubject" class="block text-gray-700 font-medium mb-2">Sujet *</label>
+                            <input type="text" id="contactSubject" name="contactSubject" required 
+                                   class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                        </div>
+                        
+                        <div>
+                            <label for="contactMessage" class="block text-gray-700 font-medium mb-2">Message *</label>
+                            <textarea id="contactMessage" name="contactMessage" rows="5" required 
+                                      class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"></textarea>
+                        </div>
+                        
+                        <button type="submit" class="w-full bg-primary hover:bg-primary/90 text-white font-medium py-3 px-6 rounded-lg transition-slow flex items-center justify-center space-x-2">
+                            <i class="far fa-paper-plane"></i>
+                            <span>Envoyer le Message</span>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Map Section -->
+    <div class="h-96 w-full">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3396.245960674093!2d-9.241701461773541!3d32.28953334347129!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzLCsDE3JzIyLjMiTiA5wrAxNCJzMzAuMSJX!5e0!3m2!1sen!2sma!4v1620000000000!5m2!1sen!2sma" 
+                width="100%" 
+                height="100%" 
+                style="border:0;" 
+                allowfullscreen="" 
+                loading="lazy"
+                class="filter grayscale(20%) contrast(110%)"></iframe>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-12">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-10">
+                <!-- About -->
+                <div>
+                    <div class="flex items-center mb-4">
+                        <div class="w-10 h-10 bg-primary rounded-full flex items-center justify-center text-white font-heading font-bold mr-3">EV</div>
+                        <span class="text-xl font-heading font-bold">Elwafi Vision</span>
+                    </div>
+                    <p class="text-gray-400 mb-4">
+                        Opticien haut de gamme à Safi, spécialisé dans les montures de luxe et les examens de vue de précision.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="https://web.facebook.com/elwafivision17" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-white transition-slow">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="https://www.instagram.com/elwafi__vision/" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-white transition-slow">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition-slow">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Quick Links -->
+                <div>
+                    <h4 class="text-lg font-heading font-bold mb-6">Liens Rapides</h4>
+                    <ul class="space-y-3">
+                        <li><a href="#home" class="text-gray-400 hover:text-white transition-slow">Accueil</a></li>
+                        <li><a href="#services" class="text-gray-400 hover:text-white transition-slow">Services</a></li>
+                        <li><a href="#gallery" class="text-gray-400 hover:text-white transition-slow">Galerie</a></li>
+                        <li><a href="#brands" class="text-gray-400 hover:text-white transition-slow">Marques</a></li>
+                        <li><a href="#contact" class="text-gray-400 hover:text-white transition-slow">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Services -->
+                <div>
+                    <h4 class="text-lg font-heading font-bold mb-6">Services</h4>
+                    <ul class="space-y-3">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-slow">Examens de vue</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-slow">Montures de luxe</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-slow">Lentilles de contact</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-slow">Réparations</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-slow">Vérification gratuite</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Newsletter -->
+                <div>
+                    <h4 class="text-lg font-heading font-bold mb-6">Newsletter</h4>
+                    <p class="text-gray-400 mb-4">
+                        Abonnez-vous pour recevoir nos offres exclusives et conseils pour vos yeux.
+                    </p>
+                    <form class="flex">
+                        <input type="email" placeholder="Votre email" 
+                               class="px-4 py-2 w-full rounded-l-lg focus:outline-none text-dark">
+                        <button type="submit" class="bg-primary hover:bg-primary/90 text-white px-4 rounded-r-lg">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-400 text-sm mb-4 md:mb-0">
+                    &copy; 2023 Elwafi Vision. Tous droits réservés.
+                </p>
+                <div class="flex space-x-6">
+                    <a href="#" class="text-gray-400 hover:text-white text-sm transition-slow">Mentions légales</a>
+                    <a href="#" class="text-gray-400 hover:text-white text-sm transition-slow">Politique de confidentialité</a>
+                    <a href="#" class="text-gray-400 hover:text-white text-sm transition-slow">Conditions générales</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <a href="#home" id="back-to-top" class="fixed bottom-8 right-8 w-12 h-12 bg-primary hover:bg-accent text-white rounded-full flex items-center justify-center shadow-lg transition-slow opacity-0 invisible">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+
+    <!-- JavaScript -->
+    <script>
+        // Preloader
+        window.addEventListener('load', function() {
+            const preloader = document.getElementById('preloader');
+            preloader.style.opacity = '0';
+            setTimeout(() => {
+                preloader.style.display = 'none';
+            }, 500);
+        });
+        
+        // Mobile Menu Toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        mobileMenuButton.addEventListener('click', function() {
+            mobileMenu.classList.toggle('hidden');
+        });
+        
+        // Close mobile menu when clicking on a link
+        document.querySelectorAll('#mobile-menu a').forEach(link => {
+            link.addEventListener('click', function() {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+        
+        // Back to Top Button
+        const backToTopButton = document.getElementById('back-to-top');
+        
+        window.addEventListener('scroll', function() {
+            if (window.pageYOffset > 300) {
+                backToTopButton.classList.remove('opacity-0', 'invisible');
+                backToTopButton.classList.add('opacity-100', 'visible');
+            } else {
+                backToTopButton.classList.remove('opacity-100', 'visible');
+                backToTopButton.classList.add('opacity-0', 'invisible');
+            }
+        });
+        
+        // Form Submissions
+        document.getElementById('bookingForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            // Here you would typically send the form data to your server
+            alert('Merci pour votre demande de rendez-vous. Nous vous contacterons sous peu pour confirmation.');
+            this.reset();
+        });
+        
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            // Here you would typically send the form data to your server
+            alert('Merci pour votre message. Nous vous répondrons dans les plus brefs délais.');
+            this.reset();
+        });
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // Animate elements when they come into view
+        const animateOnScroll = function() {
+            const elements = document.querySelectorAll('.animate-fade-in');
+            
+            elements.forEach(element => {
+                const elementPosition = element.getBoundingClientRect().top;
+                const windowHeight = window.innerHeight;
+                
+                if (elementPosition < windowHeight - 100) {
+                    element.style.opacity = '1';
+                    element.style.transform = 'translateY(0)';
+                }
+            });
+        };
+        
+        window.addEventListener('scroll', animateOnScroll);
+        window.addEventListener('load', animateOnScroll);
+    </script>
+</body>
+</html>
