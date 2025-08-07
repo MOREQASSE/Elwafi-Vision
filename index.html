@@ -113,14 +113,21 @@
 
     <!-- Header -->
     <header class="fixed w-full z-40 bg-white/90 backdrop-blur-md shadow-sm transition-all duration-300">
-        <div class="container mx-auto px-6 py-4">
+        <div class="container mx-auto px-6 py-2">
             <div class="flex justify-between items-center">
                 <!-- Logo -->
                 <a href="#" class="flex items-center">
-                    <div class="w-16 h-16 rounded-full overflow-hidden mr-3">
-    <img src="images/Elwafi vision.jpg" alt="Elwafi Vision Logo" class="w-full h-full object-cover">
-</div>
-                    <span class="text-2xl font-heading font-bold text-primary">Elwafi Vision</span>
+                    <div class="w-12 h-12 rounded-full overflow-hidden mr-3">
+                        <img src="images/Elwafi vision.jpg" alt="Elwafi Vision Logo" class="w-full h-full object-cover">
+                    </div>
+                    <span class="text-xl md:text-2xl font-heading font-bold text-primary">Elwafi Vision</span>
+                    <!-- Promo Mini -->
+                    <a href="#booking" class="no-underline">
+                        <div id="promoMini" class="ml-4 py-1 px-3 bg-red-600 text-white text-xs font-bold rounded-full flex items-center hover:bg-red-700 transition-colors">
+                            <span class="whitespace-nowrap">Offre Spéciale</span>
+                            <span id="promoMiniTime" class="ml-2 font-mono">24:00:00</span>
+                        </div>
+                    </a>
                 </a>
                 
                 <!-- Desktop Navigation -->
@@ -163,7 +170,7 @@
         </div>
         
         <div class="container mx-auto px-6 relative z-20 text-center animate-fade-in">
-            <h1 class="text-4xl md:text-5xl lg:text-6xl font-heading font-bold text-white mb-6">
+            <h1 class="text-4xl md:text-5xl lg:text-6xl font-heading font-bold mt-6 mb-6">
                 <span class="block">Votre Vision,</span>
                 <span class="block text-accent">Notre Expertise</span>
             </h1>
@@ -499,7 +506,7 @@
                          class="h-32 object-contain">
                 </div>
                 <!-- Dior Logo -->
-                <div class="bg-light rounded-xl p-6 flex items-center justify-center h-32 transition-slow hover:shadow-lg hover:-translate-y-1">
+                <div class="bg-light rounded-xl p-8 flex items-center justify-center h-32 transition-slow hover:shadow-lg hover:-translate-y-1">
                     <img src="images/brands/dior.png" 
                          alt="Dior" 
                          class="h-28 object-contain">
@@ -809,7 +816,7 @@
 
     <!-- Map Section -->
     <div class="h-96 w-full">
-        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3396.245960674093!2d-9.241701461773541!3d32.28953334347129!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzLCsDE3JzIyLjMiTiA5wrAxNCJzMzAuMSJX!5e0!3m2!1sen!2sma!4v1620000000000!5m2!1sen!2sma" 
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3396.245960674093!2d-9.241701461773541!3d32.28953334347129!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0%3A0!2zMzLCsDE3JzIyLjMiTiA5wrAxNCJzMzAuMSJX!5e0!3m2!1sen!2sma!4v1620000000000!5m2!1sen!2sma" 
                 width="100%" 
                 height="100%" 
                 style="border:0;" 
@@ -1040,88 +1047,93 @@
     </script>
 
     <script>
-        // Show promo popup
-        document.addEventListener('DOMContentLoaded', function() {
-            const promoPopup = document.getElementById('promoPopup');
-            const closeBtn = document.getElementById('closePromo');
-            const countdownElement = document.getElementById('countdown');
-            
-            // Check if user has already seen the popup today
-            const lastSeen = localStorage.getItem('promoLastSeen');
+        // Initialize popup and countdown
+        const promoPopup = document.getElementById('promoPopup');
+        const closeBtn = document.getElementById('closePromo');
+        const promoMini = document.getElementById('promoMini');
+        const promoMiniTime = document.getElementById('promoMiniTime');
+        
+        // Countdown function for both popup and mini promo
+        function updateCountdown(endTime, isMini = false) {
             const now = new Date().getTime();
-            const oneDay = 24 * 60 * 60 * 1000; // 24 hours in milliseconds
+            const distance = endTime - now;
             
-            // Show popup if it's the first time today or if 24 hours have passed
-            if (!lastSeen || (now - lastSeen > oneDay)) {
-                // Set new expiration time (24 hours from now)
-                const endTime = now + oneDay;
-                localStorage.setItem('promoEndTime', endTime);
-                localStorage.setItem('promoLastSeen', now);
-                
-                // Start countdown
-                startCountdown(endTime);
-                
-                // Show popup after a short delay
-                setTimeout(() => {
-                    promoPopup.classList.remove('hidden');
-                    document.body.style.overflow = 'hidden';
-                }, 2000);
-            } else {
-                // Check if there's an existing countdown
-                const savedEndTime = localStorage.getItem('promoEndTime');
-                if (savedEndTime) {
-                    const remainingTime = parseInt(savedEndTime) - now;
-                    if (remainingTime > 0) {
-                        startCountdown(parseInt(savedEndTime));
-                        setTimeout(() => {
-                            promoPopup.classList.remove('hidden');
-                            document.body.style.overflow = 'hidden';
-                        }, 1000);
-                    }
+            if (distance < 0) {
+                if (isMini) {
+                    promoMini.classList.add('hidden');
+                } else {
+                    document.getElementById('countdown').innerHTML = "L'offre a expiré";
                 }
+                return false;
             }
             
-            // Close button
-            closeBtn.addEventListener('click', function() {
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+            
+            if (isMini) {
+                promoMiniTime.textContent = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            } else {
+                const countdownElements = document.querySelectorAll('#countdown > div');
+                if (countdownElements.length >= 5) {
+                    countdownElements[0].firstElementChild.textContent = hours.toString().padStart(2, '0');
+                    countdownElements[2].firstElementChild.textContent = minutes.toString().padStart(2, '0');
+                    countdownElements[4].firstElementChild.textContent = seconds.toString().padStart(2, '0');
+                }
+            }
+            return true;
+        }
+        
+        // Check for existing countdown or start a new one
+        const now = new Date().getTime();
+        const oneDay = 24 * 60 * 60 * 1000; // 24 hours in milliseconds
+        let endTime = localStorage.getItem('promoEndTime');
+        
+        if (!endTime) {
+            // First time - set end time to 24 hours from now
+            endTime = now + oneDay;
+            localStorage.setItem('promoEndTime', endTime);
+        } else {
+            endTime = parseInt(endTime);
+            // If time has expired, reset the timer
+            if (endTime < now) {
+                endTime = now + oneDay;
+                localStorage.setItem('promoEndTime', endTime);
+            }
+        }
+        
+        // Show popup after a short delay on every page load
+        setTimeout(() => {
+            promoPopup.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+            
+            // Start main countdown when popup is shown
+            const mainCountdown = setInterval(() => {
+                if (!updateCountdown(endTime, false)) {
+                    clearInterval(mainCountdown);
+                }
+            }, 1000);
+        }, 1000);
+        
+        // Start mini countdown in header
+        promoMini.classList.remove('hidden');
+        const miniCountdown = setInterval(() => {
+            if (!updateCountdown(endTime, true)) {
+                clearInterval(miniCountdown);
+            }
+        }, 1000);
+        
+        // Close button
+        closeBtn.addEventListener('click', function() {
+            promoPopup.classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        });
+        
+        // Close when clicking outside
+        promoPopup.addEventListener('click', function(e) {
+            if (e.target === promoPopup) {
                 promoPopup.classList.add('hidden');
                 document.body.style.overflow = 'auto';
-            });
-            
-            // Close when clicking outside
-            promoPopup.addEventListener('click', function(e) {
-                if (e.target === promoPopup) {
-                    promoPopup.classList.add('hidden');
-                    document.body.style.overflow = 'auto';
-                }
-            });
-            
-            // Countdown function
-            function startCountdown(endTime) {
-                function updateCountdown() {
-                    const now = new Date().getTime();
-                    const distance = endTime - now;
-                    
-                    if (distance < 0) {
-                        clearInterval(countdownTimer);
-                        document.getElementById('countdown').innerHTML = "L'offre a expiré";
-                        return;
-                    }
-                    
-                    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-                    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-                    
-                    const countdownElements = document.querySelectorAll('#countdown > div');
-                    if (countdownElements.length >= 5) {
-                        countdownElements[0].firstElementChild.textContent = hours.toString().padStart(2, '0');
-                        countdownElements[2].firstElementChild.textContent = minutes.toString().padStart(2, '0');
-                        countdownElements[4].firstElementChild.textContent = seconds.toString().padStart(2, '0');
-                    }
-                }
-                
-                // Update immediately and then every second
-                updateCountdown();
-                const countdownTimer = setInterval(updateCountdown, 1000);
             }
         });
     </script>
