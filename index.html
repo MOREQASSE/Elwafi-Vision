@@ -957,183 +957,237 @@
     </a>
 
     <!-- JavaScript -->
-    <script>
-        // Preloader
-        window.addEventListener('load', function() {
-            const preloader = document.getElementById('preloader');
-            preloader.style.opacity = '0';
-            setTimeout(() => {
-                preloader.style.display = 'none';
-            }, 500);
-        });
-        
-        // Mobile Menu Toggle
-        const mobileMenuButton = document.getElementById('mobile-menu-button');
-        const mobileMenu = document.getElementById('mobile-menu');
-        
-        mobileMenuButton.addEventListener('click', function() {
-            mobileMenu.classList.toggle('hidden');
-        });
-        
-        // Close mobile menu when clicking on a link
-        document.querySelectorAll('#mobile-menu a').forEach(link => {
-            link.addEventListener('click', function() {
-                mobileMenu.classList.add('hidden');
-            });
-        });
-        
-        // Back to Top Button
-        const backToTopButton = document.getElementById('back-to-top');
-        
-        window.addEventListener('scroll', function() {
-            if (window.pageYOffset > 300) {
-                backToTopButton.classList.remove('opacity-0', 'invisible');
-                backToTopButton.classList.add('opacity-100', 'visible');
-            } else {
-                backToTopButton.classList.remove('opacity-100', 'visible');
-                backToTopButton.classList.add('opacity-0', 'invisible');
-            }
-        });
-        
-        // Form Submissions
-        document.getElementById('bookingForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            // Here you would typically send the form data to your server
-            alert('Merci pour votre demande de rendez-vous. Nous vous contacterons sous peu pour confirmation.');
-            this.reset();
-        });
-        
-        document.getElementById('contactForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            // Here you would typically send the form data to your server
-            alert('Merci pour votre message. Nous vous répondrons dans les plus brefs délais.');
-            this.reset();
-        });
-        
-        // Smooth scrolling for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-                
-                const targetId = this.getAttribute('href');
-                const targetElement = document.querySelector(targetId);
-                
-                if (targetElement) {
-                    window.scrollTo({
-                        top: targetElement.offsetTop - 80,
-                        behavior: 'smooth'
-                    });
-                }
-            });
-        });
-        
-        // Animate elements when they come into view
-        const animateOnScroll = function() {
-            const elements = document.querySelectorAll('.animate-fade-in');
-            
-            elements.forEach(element => {
-                const elementPosition = element.getBoundingClientRect().top;
-                const windowHeight = window.innerHeight;
-                
-                if (elementPosition < windowHeight - 100) {
-                    element.style.opacity = '1';
-                    element.style.transform = 'translateY(0)';
-                }
-            });
-        };
-        
-        window.addEventListener('scroll', animateOnScroll);
-        window.addEventListener('load', animateOnScroll);
-    </script>
-
-    <script>
-        // Initialize popup and countdown
-        const promoPopup = document.getElementById('promoPopup');
-        const closeBtn = document.getElementById('closePromo');
-        const promoMini = document.getElementById('promoMini');
-        const promoMiniTime = document.getElementById('promoMiniTime');
-        
-        // Countdown function for both popup and mini promo
-        function updateCountdown(endTime, isMini = false) {
-            const now = new Date().getTime();
-            const distance = endTime - now;
-            
-            if (distance < 0) {
-                if (isMini) {
-                    promoMini.classList.add('hidden');
-                } else {
-                    document.getElementById('countdown').innerHTML = "L'offre a expiré";
-                }
-                return false;
-            }
-            
-            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-            
-            if (isMini) {
-                promoMiniTime.textContent = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-            } else {
-                const countdownElements = document.querySelectorAll('#countdown > div');
-                if (countdownElements.length >= 5) {
-                    countdownElements[0].firstElementChild.textContent = hours.toString().padStart(2, '0');
-                    countdownElements[2].firstElementChild.textContent = minutes.toString().padStart(2, '0');
-                    countdownElements[4].firstElementChild.textContent = seconds.toString().padStart(2, '0');
-                }
-            }
-            return true;
+    <script defer>
+        // Function to load scripts dynamically
+        function loadScript(src, callback) {
+            const script = document.createElement('script');
+            script.src = src;
+            script.defer = true;
+            if (callback) script.onload = callback;
+            document.body.appendChild(script);
         }
-        
-        // Check for existing countdown or start a new one
-        const now = new Date().getTime();
-        const oneDay = 24 * 60 * 60 * 1000; // 24 hours in milliseconds
-        let endTime = localStorage.getItem('promoEndTime');
-        
-        if (!endTime) {
-            // First time - set end time to 24 hours from now
-            endTime = now + oneDay;
-            localStorage.setItem('promoEndTime', endTime);
-        } else {
-            endTime = parseInt(endTime);
-            // If time has expired, reset the timer
-            if (endTime < now) {
+
+        // Load scripts after DOM is ready
+        document.addEventListener('DOMContentLoaded', function() {
+            // Load AOS animation library
+            loadScript('https://unpkg.com/aos@next/dist/aos.js', function() {
+                AOS.init({
+                    duration: 800,
+                    once: true
+                });
+            });
+
+            // Preloader
+            window.addEventListener('load', function() {
+                const preloader = document.getElementById('preloader');
+                preloader.style.opacity = '0';
+                setTimeout(() => {
+                    preloader.style.display = 'none';
+                }, 500);
+            });
+            
+            // Mobile Menu Toggle
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            
+            mobileMenuButton.addEventListener('click', function() {
+                mobileMenu.classList.toggle('hidden');
+            });
+            
+            // Close mobile menu when clicking on a link
+            document.querySelectorAll('#mobile-menu a').forEach(link => {
+                link.addEventListener('click', function() {
+                    mobileMenu.classList.add('hidden');
+                });
+            });
+            
+            // Back to Top Button
+            const backToTopButton = document.getElementById('back-to-top');
+            
+            window.addEventListener('scroll', function() {
+                if (window.pageYOffset > 300) {
+                    backToTopButton.classList.remove('opacity-0', 'invisible');
+                    backToTopButton.classList.add('opacity-100', 'visible');
+                } else {
+                    backToTopButton.classList.remove('opacity-100', 'visible');
+                    backToTopButton.classList.add('opacity-0', 'invisible');
+                }
+            });
+            
+            // Form Submissions
+            document.getElementById('bookingForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                // Here you would typically send the form data to your server
+                alert('Merci pour votre demande de rendez-vous. Nous vous contacterons sous peu pour confirmation.');
+                this.reset();
+            });
+            
+            document.getElementById('contactForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                // Here you would typically send the form data to your server
+                alert('Merci pour votre message. Nous vous répondrons dans les plus brefs délais.');
+                this.reset();
+            });
+            
+            // Smooth scrolling for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+            
+            // Animate elements when they come into view
+            const animateOnScroll = function() {
+                const elements = document.querySelectorAll('.animate-fade-in');
+                
+                elements.forEach(element => {
+                    const elementPosition = element.getBoundingClientRect().top;
+                    const windowHeight = window.innerHeight;
+                    
+                    if (elementPosition < windowHeight - 100) {
+                        element.style.opacity = '1';
+                        element.style.transform = 'translateY(0)';
+                    }
+                });
+            };
+            
+            window.addEventListener('scroll', animateOnScroll);
+            window.addEventListener('load', animateOnScroll);
+
+            // Initialize popup and countdown
+            const promoPopup = document.getElementById('promoPopup');
+            const closeBtn = document.getElementById('closePromo');
+            const promoMini = document.getElementById('promoMini');
+            const promoMiniTime = document.getElementById('promoMiniTime');
+            
+            // Countdown function for both popup and mini promo
+            function updateCountdown(endTime, isMini = false) {
+                const now = new Date().getTime();
+                const distance = endTime - now;
+                
+                if (distance < 0) {
+                    if (isMini) {
+                        promoMini.classList.add('hidden');
+                    } else {
+                        document.getElementById('countdown').innerHTML = "L'offre a expiré";
+                    }
+                    return false;
+                }
+                
+                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+                
+                if (isMini) {
+                    promoMiniTime.textContent = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+                } else {
+                    const countdownElements = document.querySelectorAll('#countdown > div');
+                    if (countdownElements.length >= 5) {
+                        countdownElements[0].firstElementChild.textContent = hours.toString().padStart(2, '0');
+                        countdownElements[2].firstElementChild.textContent = minutes.toString().padStart(2, '0');
+                        countdownElements[4].firstElementChild.textContent = seconds.toString().padStart(2, '0');
+                    }
+                }
+                return true;
+            }
+            
+            // Check for existing countdown or start a new one
+            const now = new Date().getTime();
+            const oneDay = 24 * 60 * 60 * 1000; // 24 hours in milliseconds
+            let endTime = localStorage.getItem('promoEndTime');
+            
+            if (!endTime) {
+                // First time - set end time to 24 hours from now
                 endTime = now + oneDay;
                 localStorage.setItem('promoEndTime', endTime);
+            } else {
+                endTime = parseInt(endTime);
+                // If time has expired, reset the timer
+                if (endTime < now) {
+                    endTime = now + oneDay;
+                    localStorage.setItem('promoEndTime', endTime);
+                }
             }
-        }
-        
-        // Show popup after a short delay on every page load
-        setTimeout(() => {
-            promoPopup.classList.remove('hidden');
-            document.body.style.overflow = 'hidden';
             
-            // Start main countdown when popup is shown
-            const mainCountdown = setInterval(() => {
-                if (!updateCountdown(endTime, false)) {
-                    clearInterval(mainCountdown);
+            // Show popup after a short delay on every page load
+            setTimeout(() => {
+                promoPopup.classList.remove('hidden');
+                document.body.style.overflow = 'hidden';
+                
+                // Start main countdown when popup is shown
+                const mainCountdown = setInterval(() => {
+                    if (!updateCountdown(endTime, false)) {
+                        clearInterval(mainCountdown);
+                    }
+                }, 1000);
+            }, 1000);
+            
+            // Start mini countdown in header
+            promoMini.classList.remove('hidden');
+            const miniCountdown = setInterval(() => {
+                if (!updateCountdown(endTime, true)) {
+                    clearInterval(miniCountdown);
                 }
             }, 1000);
-        }, 1000);
-        
-        // Start mini countdown in header
-        promoMini.classList.remove('hidden');
-        const miniCountdown = setInterval(() => {
-            if (!updateCountdown(endTime, true)) {
-                clearInterval(miniCountdown);
-            }
-        }, 1000);
-        
-        // Close button
-        closeBtn.addEventListener('click', function() {
-            promoPopup.classList.add('hidden');
-            document.body.style.overflow = 'auto';
-        });
-        
-        // Close when clicking outside
-        promoPopup.addEventListener('click', function(e) {
-            if (e.target === promoPopup) {
+            
+            // Close button
+            closeBtn.addEventListener('click', function() {
                 promoPopup.classList.add('hidden');
                 document.body.style.overflow = 'auto';
+            });
+            
+            // Close when clicking outside
+            promoPopup.addEventListener('click', function(e) {
+                if (e.target === promoPopup) {
+                    promoPopup.classList.add('hidden');
+                    document.body.style.overflow = 'auto';
+                }
+            });
+
+            // Lazy load Google Maps
+            const mapContainer = document.getElementById('map-container');
+            if (mapContainer) {
+                const loadMap = () => {
+                    const iframe = document.createElement('iframe');
+                    iframe.src = 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3396.245960674093!2d-9.241701461773541!3d32.28953334347129!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0%3A0!2zMzLCsDE3JzIyLjMiTiA5wrAxNCJzMzAuMSJX!5e0!3m2!1sen!2sma!4v1620000000000!5m2!1sen!2sma';
+                    iframe.width = '100%';
+                    iframe.height = '100%';
+                    iframe.style.border = '0';
+                    iframe.allowFullscreen = '';
+                    iframe.loading = 'lazy';
+                    iframe.referrerPolicy = 'no-referrer-when-downgrade';
+                    
+                    mapContainer.innerHTML = '';
+                    mapContainer.appendChild(iframe);
+                };
+
+                // Only load map when it's about to come into view
+                const observer = new IntersectionObserver((entries) => {
+                    if (entries[0].isIntersecting) {
+                        loadMap();
+                        observer.disconnect();
+                    }
+                }, {
+                    rootMargin: '200px',
+                    threshold: 0.01
+                });
+
+                observer.observe(mapContainer);
+
+                // Fallback for browsers without IntersectionObserver
+                if (!('IntersectionObserver' in window)) {
+                    loadMap();
+                }
             }
         });
     </script>
