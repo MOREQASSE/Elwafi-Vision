@@ -818,6 +818,53 @@
                 class="filter grayscale(20%) contrast(110%)"></iframe>
     </div>
 
+    <!-- Promo Popup -->
+    <div id="promoPopup" class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 hidden">
+        <div class="bg-white rounded-xl max-w-lg w-full mx-4 relative overflow-hidden">
+            <!-- Close Button -->
+            <button id="closePromo" class="absolute top-4 right-4 text-3xl font-bold text-red-600 hover:text-red-700">&times;</button>
+            
+            <!-- Tag -->
+            <div class="bg-red-600 text-white text-sm font-bold uppercase tracking-wider py-1 px-3 inline-block rounded-br-lg">
+                Offre Limitée
+            </div>
+            
+            <!-- Content -->
+            <div class="p-6 pt-4">
+                <h3 class="text-2xl font-heading font-bold text-gray-900 mb-2">Offre de Bienvenue</h3>
+                <h4 class="text-xl text-primary font-medium mb-4">Bénéficiez d'un examen de la vue gratuit + des montures offertes sur rendez-vous</h4>
+                <p class="text-gray-600 mb-6">
+                    Cette offre spéciale est réservée aux nouveaux clients. Profitez-en dès maintenant, offre valable pour une durée limitée uniquement.
+                </p>
+                
+                <!-- Countdown -->
+                <div class="bg-gray-50 p-4 rounded-lg mb-6">
+                    <p class="text-center text-gray-700 font-medium mb-3">Offre valable jusqu'à :</p>
+                    <div id="countdown" class="flex justify-center gap-3">
+                        <div class="text-center">
+                            <div class="bg-primary text-white text-2xl font-bold rounded-lg w-16 h-16 flex items-center justify-center">24</div>
+                            <span class="text-xs text-gray-500 mt-1 block">Heures</span>
+                        </div>
+                        <div class="text-3xl font-bold text-primary flex items-center">:</div>
+                        <div class="text-center">
+                            <div class="bg-primary text-white text-2xl font-bold rounded-lg w-16 h-16 flex items-center justify-center">00</div>
+                            <span class="text-xs text-gray-500 mt-1 block">Minutes</span>
+                        </div>
+                        <div class="text-3xl font-bold text-primary flex items-center">:</div>
+                        <div class="text-center">
+                            <div class="bg-primary text-white text-2xl font-bold rounded-lg w-16 h-16 flex items-center justify-center">00</div>
+                            <span class="text-xs text-gray-500 mt-1 block">Secondes</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <a href="#booking" class="block w-full bg-accent hover:bg-accent/90 text-white text-center py-3 px-6 rounded-lg font-medium transition-colors" onclick="document.getElementById('promoPopup').classList.add('hidden'); document.body.style.overflow = 'auto';">
+                    Prendre Rendez-vous Maintenant
+                </a>
+            </div>
+        </div>
+    </div>
+
     <!-- Footer -->
     <footer class="bg-dark text-white py-12">
         <div class="container mx-auto px-6">
@@ -990,6 +1037,93 @@
         
         window.addEventListener('scroll', animateOnScroll);
         window.addEventListener('load', animateOnScroll);
+    </script>
+
+    <script>
+        // Show promo popup
+        document.addEventListener('DOMContentLoaded', function() {
+            const promoPopup = document.getElementById('promoPopup');
+            const closeBtn = document.getElementById('closePromo');
+            const countdownElement = document.getElementById('countdown');
+            
+            // Check if user has already seen the popup today
+            const lastSeen = localStorage.getItem('promoLastSeen');
+            const now = new Date().getTime();
+            const oneDay = 24 * 60 * 60 * 1000; // 24 hours in milliseconds
+            
+            // Show popup if it's the first time today or if 24 hours have passed
+            if (!lastSeen || (now - lastSeen > oneDay)) {
+                // Set new expiration time (24 hours from now)
+                const endTime = now + oneDay;
+                localStorage.setItem('promoEndTime', endTime);
+                localStorage.setItem('promoLastSeen', now);
+                
+                // Start countdown
+                startCountdown(endTime);
+                
+                // Show popup after a short delay
+                setTimeout(() => {
+                    promoPopup.classList.remove('hidden');
+                    document.body.style.overflow = 'hidden';
+                }, 2000);
+            } else {
+                // Check if there's an existing countdown
+                const savedEndTime = localStorage.getItem('promoEndTime');
+                if (savedEndTime) {
+                    const remainingTime = parseInt(savedEndTime) - now;
+                    if (remainingTime > 0) {
+                        startCountdown(parseInt(savedEndTime));
+                        setTimeout(() => {
+                            promoPopup.classList.remove('hidden');
+                            document.body.style.overflow = 'hidden';
+                        }, 1000);
+                    }
+                }
+            }
+            
+            // Close button
+            closeBtn.addEventListener('click', function() {
+                promoPopup.classList.add('hidden');
+                document.body.style.overflow = 'auto';
+            });
+            
+            // Close when clicking outside
+            promoPopup.addEventListener('click', function(e) {
+                if (e.target === promoPopup) {
+                    promoPopup.classList.add('hidden');
+                    document.body.style.overflow = 'auto';
+                }
+            });
+            
+            // Countdown function
+            function startCountdown(endTime) {
+                function updateCountdown() {
+                    const now = new Date().getTime();
+                    const distance = endTime - now;
+                    
+                    if (distance < 0) {
+                        clearInterval(countdownTimer);
+                        document.getElementById('countdown').innerHTML = "L'offre a expiré";
+                        return;
+                    }
+                    
+                    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+                    
+                    const countdownElements = document.querySelectorAll('#countdown > div');
+                    if (countdownElements.length >= 5) {
+                        countdownElements[0].firstElementChild.textContent = hours.toString().padStart(2, '0');
+                        countdownElements[2].firstElementChild.textContent = minutes.toString().padStart(2, '0');
+                        countdownElements[4].firstElementChild.textContent = seconds.toString().padStart(2, '0');
+                    }
+                }
+                
+                // Update immediately and then every second
+                updateCountdown();
+                const countdownTimer = setInterval(updateCountdown, 1000);
+            }
+        });
     </script>
 </body>
 </html>
